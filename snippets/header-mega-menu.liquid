@@ -31,21 +31,36 @@
                 tabindex="-1"
               >
                 <ul
-                  class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
+                  class="mega-menu__list page-width kt-flex {% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
                   role="list"
                 >
                   {%- for childlink in link.links -%}
-                    <li>
-                      <a
-                        id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
-                        href="{{ childlink.url }}"
-                        class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}"
-                        {% if childlink.current %}
-                          aria-current="page"
-                        {% endif %}
-                      >
-                        {{ childlink.title | escape }}
-                      </a>
+                    {%- assign collection_handle = childlink.url | split: '/' | last -%}
+                    {%- assign linked_collection = collections[collection_handle] -%}
+                    <li class="kt-flex kt-items-center kt-flex-col kt-gap-4">
+                      {%- if linked_collection.image != blank -%}
+                        <a href="{{ childlink.url }}" class="kt-block kt-overflow-hidden kt-rounded">
+                          {{
+                            linked_collection.image
+                            | image_url: width: 200
+                            | image_tag: loading: 'lazy', class: 'kt-object-cover kt-w-full kt-h-full kt-rounded-md'
+                          }}
+                        </a>
+                      {%- endif -%}
+
+                      <div>
+                        <a
+                          id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
+                          href="{{ childlink.url }}"
+                          class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}"
+                          {% if childlink.current %}
+                            aria-current="page"
+                          {% endif %}
+                        >
+                          {{ childlink.title | escape }}
+                        </a>
+                      </div>
+
                       {%- if childlink.links != blank -%}
                         <ul class="list-unstyled" role="list">
                           {%- for grandchildlink in childlink.links -%}

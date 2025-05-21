@@ -1,0 +1,25 @@
+{
+  "article": [],
+  "blog": [],
+  "collection": [
+    {
+      "key": "short_description_",
+      "namespace": "custom",
+      "name": "short-description ",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    }
+  ],
+  "company": [],
+  "company_location": [],
+  "location": [],
+  "market": [],
+  "order": [],
+  "page": [],
+  "product": [],
+  "variant": [],
+  "shop": []
+}
